@@ -14,6 +14,11 @@ def create_mcp_server() -> FastMCP:
                           "httpx",
                           "matplotlib"
                       ])
+                      
+        # 挂载健康检测接口，如果 FastMCP.app 是 FastAPI 对象
+        if hasattr(mcp, "app"):
+            mcp.app.add_api_route("/", lambda: "ok", methods=["GET"])
+            mcp.app.add_api_route("/health", lambda: "ok", methods=["GET"])
         
         # Register tools
         print("Registering tools...", file=sys.stderr)
