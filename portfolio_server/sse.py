@@ -11,7 +11,7 @@ from starlette.middleware.cors import CORSMiddleware
 from mcp.server.sse import SseServerTransport
 from portfolio_server.server import create_mcp_server
 
-def create_sse_app(port=8080):
+def create_sse_app(port=8081):
     """
     Create a Starlette app for SSE transport with the portfolio MCP server.
     
