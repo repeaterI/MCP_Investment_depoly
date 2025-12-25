@@ -163,7 +163,8 @@ def run_server_with_retry(transport_type, config=None):
     logger.error(f"Failed to start server after {max_retries + 1} attempts. Last error: {last_error}")
     return False
 
-if __name__ == "__main__":
+def main():
+    """Main entry point for the portfolio server."""
     logger.info("Portfolio Manager MCP Server starting")
 
     # Default
@@ -224,3 +225,6 @@ if __name__ == "__main__":
         logger.info("Shutting down MCP server...")
         # Add any necessary cleanup code here
         logger.info("MCP server shutdown complete")
+
+if __name__ == "__main__": 
+    main()
