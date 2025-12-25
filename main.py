@@ -216,9 +216,9 @@ def main():
     except KeyboardInterrupt:
         # Handle keyboard interrupt (Ctrl+C)
         logger.info("Server interrupted via keyboard")
-    except Exception as e:
+    except Exception as err:
         # Handle any other exceptions
-        logger.error(f"Error running MCP server: {e}")
+        logger.error(f"Error running MCP server: {err}")
         sys.exit(1)
     finally:
         # Perform cleanup
