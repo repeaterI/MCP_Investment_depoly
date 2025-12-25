@@ -58,7 +58,7 @@ def create_sse_app(port=8081):
     # Create the Starlette app
     return Starlette(routes=routes, middleware=middleware)
 
-def run_sse_server(port=8080, host="0.0.0.0"):
+def run_sse_server(port=8081, host="0.0.0.0"):
     """
     Run the MCP server with SSE transport using uvicorn.
     
