@@ -92,8 +92,8 @@ def check_connection_status(transport_type, config=None):
             # If the connection was refused, the port is available (good)
             # If we could connect, someone else is using it (bad for our server)
             return result != 0
-        except Exception as e:
-            logger.warning(f"Error checking connection status for {transport_type}: {e}")
+        except Exception as err:
+            logger.warning(f"Error checking connection status for {transport_type}: {err}")
             return False
     else:
         logger.warning(f"Unknown transport type for status check: {transport_type}")
@@ -139,18 +139,18 @@ def run_server_with_retry(transport_type, config=None):
             
             # If we get here, the server started successfully
             return True
-        except ConnectionError as e:
+        except ConnectionError as connect_err:
             # Specific handling for connection errors
-            last_error = e
-            logger.error(f"Connection error starting server: {e}")
-        except OSError as e:
+            last_error = connect_err
+            logger.error(f"Connection error starting server: {connect_err}")
+        except OSError as os_err:
             # Handle OS errors like port already in use
-            last_error = e
-            logger.error(f"OS error starting server: {e}")
-        except Exception as e:
+            last_error = os_err
+            logger.error(f"OS error starting server: {os_err}")
+        except Exception as err:
             # Catch any other exceptions
-            last_error = e
-            logger.error(f"Error starting server: {e}")
+            last_error = err
+            logger.error(f"Error starting server: {err}")
 
         # Increment retry counter
         retries += 1
