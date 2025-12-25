@@ -4,6 +4,9 @@ import logging
 import time
 import socket
 from portfolio_server.server import create_mcp_server
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
 
 # Configure logging
 logging.basicConfig(
@@ -26,7 +29,7 @@ TRANSPORT_CONFIG = {
         "startup_delay": 3.0,  # Increased delay for SSE to establish connection
         "max_retries": 5,      # Increased retries for network transports
         "retry_delay": 3.0,    # Increased delay between retries
-        "port": 8080,          # Default SSE port
+        "port": 8081,          #8 Default SSE port
         "connection_timeout": 10.0  # Added timeout for connection attempts
     },
     "http": {
@@ -39,6 +42,26 @@ TRANSPORT_CONFIG = {
 
 # Global flag for shutdown
 is_shutting_down = False
+
+# 健康监听
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path in ("/", "/health"):
+            self.send_response(200)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"ok")
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+def run_health_server(port=8080):
+    server = HTTPServer(('0.0.0.0', port), HealthHandler)
+    server.serve_forever()
+
+# 在入口启动健康检查守护线程（不会阻塞主服务，也不会中断 FastMCP 业务）
+threading.Thread(target=run_health_server, args=(8080,), daemon=True).start()
+
 
 # Signal handlers for graceful shutdown
 def handle_shutdown_signal(signum, frame):
