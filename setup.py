@@ -42,7 +42,7 @@ setup(
     long_description_content_type='text/markdown',
     author='repeaterI',
     author_email='',
-    url='https://github.com/repeaterI/MCP_InvestmentPortfolio',
+    url='https://github.com/repeaterI/MCP_Investment_depoly',
     license='MIT',
     
     # 包发现配置

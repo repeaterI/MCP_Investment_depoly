@@ -14,8 +14,8 @@ A Model Context Protocol (MCP) server that provides tools and resources for mana
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/ikhyunAn/portfolio-manager-mcp.git
-   cd portfolio-manager-mcp
+   git clone https://github.com/repeaterI/MCP_Investment_depoly.git
+   cd MCP_Investment_depoly
    ```
 
 2. Install the required dependencies:
@@ -56,7 +56,7 @@ Add the server to your Claude Desktop configuration file:
   "mcpServers": {
     "portfolio-manager": {
       "command": "python",      // may use different command
-      "args": ["/path/to/portfolio-manager-mcp/main.py"],
+      "args": ["/path/to/MCP_Investment_depoly/main.py"],
       "env": {
         "ALPHA_VANTAGE_API_KEY": "your_key_here",
         "NEWS_API_KEY": "your_key_here"
@@ -72,10 +72,10 @@ If you choose to run your server in a virtual environment, then your configurati
 {
   "mcpServers": {
     "portfolio-manager": {
-      "command": "/path/to/portfolio-manager-mcp/venv/bin/python",
-      "args": ["/path/to/portfolio-manager-mcp/main.py"],
+      "command": "/path/to/MCP_Investment_depoly/venv/bin/python",
+      "args": ["/path/to/MCP_Investment_depoly/main.py"],
       "env": {
-        "PYTHONPATH": "/path/to/portfolio-manager-mcp",
+        "PYTHONPATH": "/path/to/MCP_Investment_depoly",
         "ALPHA_VANTAGE_API_KEY": "your_key_here",
         "NEWS_API_KEY": "your_key_here"
       }
