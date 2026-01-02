@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>MCP Portfolio Dashboard</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f7; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 200px; }
+        button { padding: 10px 20px; background: #007aff; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 6px; overflow-x: auto; }
+        img { max-width: 100%; border-radius: 8px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📈 投资组合可视化大屏</h1>
+        <div>
+            <label>User ID: </label>
+            <input type="text" id="userId" value="default_user" placeholder="输入用户ID">
+            <button onclick="loadData()">查询数据</button>
+        </div>
+    </div>
+
+    <div class="card" id="resultArea" style="display:none;">
+        <h3>资产配置详情</h3>
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <h4>JSON 数据</h4>
+                <pre id="jsonData">Loading...</pre>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <h4>可视化图表</h4>
+                <img id="chartImg" src="" alt="Portfolio Chart">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadData() {
+            const userId = document.getElementById('userId').value;
+            if(!userId) return alert("请输入User ID");
+            
+            document.getElementById('resultArea').style.display = 'block';
+            document.getElementById('jsonData').innerText = "Loading...";
+            document.getElementById('chartImg').src = ""; // Clear old image
+
+            try {
+                // 1. 获取 JSON 数据
+                const res = await fetch(`/api/portfolio/${userId}`);
+                const data = await res.json();
+                document.getElementById('jsonData').innerText = JSON.stringify(data, null, 2);
+
+                // 2. 获取图片
+                // 添加时间戳防止浏览器缓存
+                document.getElementById('chartImg').src = `/api/chart/${userId}?t=${new Date().getTime()}`;
+            } catch (e) {
+                alert("获取数据失败，请确保服务已启动且 User ID 存在。");
+                console.error(e);
+            }
+        }
+    </script>
+</body>
+</html>
