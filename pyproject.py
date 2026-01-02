@@ -52,8 +52,8 @@ portfolio-server = "main:main"
 claude-server = "claude_server:main"
 
 [project.urls]
-Homepage = "https://github.com/repeaterI/MCP_InvestmentPortfolio"
-Repository = "https://github.com/repeaterI/MCP_InvestmentPortfolio"
+Homepage = "https://github.com/repeaterI/MCP_Investment_depoly"
+Repository = "https://github.com/repeaterI/MCP_Investment_depoly"
 
 [tool. setuptools]
 packages = ["portfolio_server", "portfolio_server. api", "portfolio_server. data", "portfolio_server. resources", "portfolio_server. tools"]
